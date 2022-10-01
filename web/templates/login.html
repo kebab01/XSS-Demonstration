@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <title>XSS Example</title>
+    </head>
+
+    <body>
+        <h1>Welcome, please sign in</h1>
+        <form action="{{url_for('login')}}" method="POST">
+            <label>Username</label><br>
+            <input type="text" name="uname"><br><br>
+            <label>Password</label><br>
+            <input type="password" name="passwd"><br><br>
+            <input type="submit" name='login' value="Login">
+
+            {% if failed==True %}
+                <p style="color: red">Incorrect username or password</p>
+            {% endif %}
+
+            <div>
+                Not a member? 
+                <input type="submit" name="sign_up" value="Sign Up"/>
+            </div>
+        </form>
+    </body>
+</html>

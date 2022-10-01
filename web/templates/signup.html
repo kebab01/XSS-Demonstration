@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sing up</title>
+    </head>
+    <body>
+        <form action="{{url_for('sign_up')}}" method="POST">
+            <label>Username</label><br/>
+            <input name="uname" required/><br/>
+            <label>Password</label><br/>
+            <input name="passwd" type="password" required/><br/>
+            <label>Confirm Password</label><br/>
+            <input name="conf_passwd" type="password" required/><br/>
+            <input type="submit" name="signup" value="Sing up"/>
+        </form>
+        
+        {% if pass_match==False %}
+            <p style="color: red">Passwords do not match, please try again</p>
+        {% endif %}
+    </body>
+</html>
