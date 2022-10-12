@@ -1,7 +1,7 @@
 from urllib import response
 from flask import Flask, make_response, redirect, url_for, render_template, request, session, Response
 
-from functions import addPost, is_valid_user, create_user, getPosts
+from functions import addPost, is_valid_user, create_user, getPosts, sanitize_post
 
 from flask.sessions import SecureCookieSessionInterface
 
@@ -64,9 +64,9 @@ def forum():
     posts=getPosts()
     try:
         user=session['user']
-        print(session, user)
-        # print(posts)
-        return render_template('forum.html', user=user, posts=posts)
+        bad_param=request.args.get("bad_param")
+        #posts=[sanitize_post(i) for i in posts]
+        return render_template('forum.html', user=user, posts=posts, param=bad_param)
     except KeyError:
         return redirect(url_for('login'))
 

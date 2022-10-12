@@ -1,21 +1,55 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Sing up</title>
+        <title>Sign up</title>
+		<style>
+		.header {
+			padding: 20px;
+			text-align: center;
+			background: #40d695;
+			color: white;
+			font-size: 30px;
+			font-family: DejaVu Sans Mono, monospace;
+		}
+		.paragraph {
+			padding: 10px;
+			text-align: center;
+			background: #012e75;
+			color: white;
+			font-size: 30px;
+			font-family: DejaVu Sans Mono, monospace;
+		}
+		#button{
+            background-color: #40d695;
+            border: none;
+            border-radius: 20%;
+            font-size: large;
+            padding:20px;
+            margin-top: 10px;
+            color: white;
+        }
+		</style>
     </head>
     <body>
+		<div class="header">
+			<h1>Create Account</h1>
+			<p>Enter details</p>
+		</div>
+		<div class="paragraph">
         <form action="{{url_for('sign_up')}}" method="POST">
-            <label>Username</label><br/>
+            <label>Username:</label><br/>
             <input name="uname" required/><br/>
-            <label>Password</label><br/>
+            <label>Password:</label><br/>
             <input name="passwd" type="password" required/><br/>
-            <label>Confirm Password</label><br/>
+            <label>Confirm Password:</label><br/>
             <input name="conf_passwd" type="password" required/><br/>
-            <input type="submit" name="signup" value="Sing up"/>
+            <input id="button" type="submit" name="signup" value="Sign up"/>
+
         </form>
-        
+		<br></br>
         {% if pass_match==False %}
             <p style="color: red">Passwords do not match, please try again</p>
         {% endif %}
+		</div>
     </body>
 </html>

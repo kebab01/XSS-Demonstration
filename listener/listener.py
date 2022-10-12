@@ -13,4 +13,4 @@ def root(cookie:str, request:Request):
 
 if __name__ == "__main__":
     print("listening for cookies...")
-    uvicorn.run("listener:app", host="127.0.0.1", port=8001, log_level="warning", reload=True)
+    uvicorn.run("listener:app", host="0.0.0.0", port=8081, log_level="warning", reload=True)

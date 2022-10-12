@@ -1,24 +1,60 @@
 <html>
     <style>
+        .singed_user{
+            font-weight: bold;
+            text-align: start;
+        }
+		.posts {
+			padding: 20px;
+			text-align: center;
+			background: #40d695;
+			color: white;
+			font-size: 30px;
+			font-family: DejaVu Sans Mono, monospace;
+		}
+	    #new_post {
+			padding: 10px;
+			background: #012e75;
+			color: white;
+			font-size: 30px;
+			font-family: DejaVu Sans Mono, monospace;
+		}
         table{
             /* max-width: 500px; */
             margin: auto;
+			color: white;
+			font-size: 30px;
         }
         table, th, td{
-            border: 1px solid black;
+            border: 2px solid white;
             border-collapse: collapse;
-            padding:10
+            padding:20;
+			font-size: 30px;
         }
         textarea{
+            padding:10;
+            font-family: DejaVu Sans Mono, monospace;
             width: 50%;
+            height: 100;
+        }
+        #button{
+            background-color: #40d695;
+            border: none;
+            border-radius: 20%;
+            font-size: large;
+            padding:20;
+            margin-top: 10;
+            color: white;
         }
     </style>
     <head>
         <title>Forum</title>
     </head>
     <body>
-        Singed in as {{user | safe}}
-
+		<div class="posts">
+			<p class="singed_user">Signed in as {{user | safe}}</p>
+            <p>{{param | safe}}</p>
+			<br></br>
             <table>
                 <tr>
                     <th>User</th>
@@ -33,7 +69,7 @@
                 </tr>
                 {% endfor %}
             </table>
-
+		</div>
             <div id="new_post">
                 <b>Add a new post</b>
                 <form action="{{url_for('add_post')}}" method="POST">
@@ -41,8 +77,8 @@
                     <input type="text" name="title"/><br/>
                     <label>Content:</label><br/>
                     <textarea name="content"></textarea><br/>
-                    <input type="submit" value="Post"/>
+                    <input id="button" type="submit" value="Post"/>
                 </form>
-            </div>
+		</div>
     </body>
 </html>

@@ -1,4 +1,3 @@
-from locale import currency
 import psycopg2
 
 USER="tom"
@@ -55,3 +54,19 @@ def addPost(user, title, content):
     cursor.execute("insert into posts (title, author, content) values (%s, %s, %s)", (title, user, content))
     conn.commit()
         
+def sanitize_post(post):
+    
+    content=post['content']
+    title=post['title']
+
+    content=content.replace("<","")
+    content=content.replace(">","")
+    
+    title=title.replace("<","")
+    title=title.replace(">","")
+
+    post['content']=content
+    post['title']=title
+
+    print(post)
+    return post

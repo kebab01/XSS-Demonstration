@@ -1,25 +1,58 @@
 <html>
     <head>
         <title>XSS Example</title>
+		<style>
+			.header {
+			padding: 20px;
+			text-align: center;
+			background: #40d695;
+			color: white;
+			font-size: 30px;
+			font-family: DejaVu Sans Mono, monospace;
+			}
+			.paragraph {
+			padding: 10px;
+			text-align: center;
+			background: #012e75;
+			color: white;
+			font-size: 30px;
+			font-family: DejaVu Sans Mono, monospace;
+			}
+			#button{
+            background-color: #40d695;
+            border: none;
+            border-radius: 20%;
+            font-size: large;
+            padding:20px;
+            margin-top: 10;
+            color: white;
+        }
+		</style>
     </head>
 
     <body>
-        <h1>Welcome, please sign in</h1>
+		<div class="header">
+			<h1>Welcome</h1>
+			<p>Please sign in</p>
+		</div>
+		<div class="paragraph">
         <form action="{{url_for('login')}}" method="POST">
-            <label>Username</label><br>
+            <label>Username:</label><br>
             <input type="text" name="uname"><br><br>
-            <label>Password</label><br>
+            <label>Password:</label><br>
             <input type="password" name="passwd"><br><br>
-            <input type="submit" name='login' value="Login">
-
-            {% if failed==True %}
+            <input id="button" type="submit" name='login' value="Login">
+			<br></br>
+            {% if failed == True %}
                 <p style="color: red">Incorrect username or password</p>
             {% endif %}
-
+			<br></br>
             <div>
-                Not a member? 
-                <input type="submit" name="sign_up" value="Sign Up"/>
+                Not a member?
+				<br></br>
+                <input id="button" type="submit" name="sign_up" value="Sign Up"/>
             </div>
         </form>
+		</div>
     </body>
 </html>

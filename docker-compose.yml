@@ -1,0 +1,31 @@
+version: '3.1'
+
+services:
+
+  python_web:
+    container_name: python_web
+    build:
+      context: web/
+      dockerfile: Dockerfile
+    environment:
+    - PYTHONUNBUFFERED=1
+    ports:
+      - "80:5000"
+
+  db:
+    container_name: database
+    image: postgres
+    env_file:
+      - .env
+    volumes:
+      - ./web/init.d:/docker-entrypoint-initdb.d
+
+  python_listener:
+    container_name: python_listener
+    build:
+      context: listener/
+      dockerfile: Dockerfile
+    environment:
+      - PYTHONUNBUFFERED=1
+    ports:
+      - "8081:8081"
