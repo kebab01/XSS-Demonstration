@@ -1,84 +1,258 @@
 <html>
     <style>
-        .singed_user{
-            font-weight: bold;
-            text-align: start;
+        body{
+            padding: 0;   
+            margin: 0;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(247, 245, 245);
+            text-align: center;
+            font-family: "Tahoma"
         }
-		.posts {
-			padding: 20px;
-			text-align: center;
-			background: #40d695;
-			color: white;
-			font-size: 30px;
-			font-family: DejaVu Sans Mono, monospace;
-		}
-	    #new_post {
-			padding: 10px;
+        .header {
+			height: 80;
+			width: 100%;
 			background: #012e75;
-			color: white;
-			font-size: 30px;
-			font-family: DejaVu Sans Mono, monospace;
+			align-items: center;
+            
 		}
-        table{
-            /* max-width: 500px; */
-            margin: auto;
-			color: white;
-			font-size: 30px;
+        .header_avatar{
+            width: 50px;
+            height: 50px;
         }
-        table, th, td{
-            border: 2px solid white;
-            border-collapse: collapse;
-            padding:20;
-			font-size: 30px;
+		.header_content{
+            height: 100%;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            justify-content: space-between;
+		}
+        .left{
+            margin-left: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .right{
+            margin-right: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .signed_user{
+            color: white;
+            font-size: 20;
+            margin-left: 20px;
+            display: flex;
+        }
+        .card{
+            background-color: white;
+            width:max(40%,500px);
+            align-self: center;
+            margin: auto;
+            margin-top: 20px;
+            text-align: center;
+            padding: 20;
+            border-radius: 30px;
+            box-shadow: 5px 10px #e8e8e8;
+			}
+        .text_input{
+            height: 30;
+            width: 200;
+            border: none;
+            border-bottom: 1px solid rgb(0, 0, 0);
+        }
+        .posts{
+            margin-top: 30;
+        }
+        .post_header{
+            display: flex;
+            justify-content: space-between;
+        }
+        .post_title{
+            margin-left: 5px;
+        }
+        .post_author{
+            margin-left:5px;
+        }
+        .title{
+            display: flex;
+        }
+        .author{
+            display: flex;
+        }
+        .post_content{
+            text-align:left;
+        }
+        .card_heading{
+            font-weight: bold;
+        }
+        .seperator{
+            width: 80%;
+            background-color: #012e75;
+            height:2px;
+            text-align: center;
+            margin: auto;
+            margin-top: 20;
+            margin-bottom: 20;
+        }
+        .new_post{
+            background-color: #012e75;;
+            border: none;
+            width: 80;
+            height: 80;
+            cursor: pointer;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            border-radius: 50%;
+        }
+        .new_post:hover{
+            background-color: RoyalBlue;
+        }
+        .plus{
+            width: 50;
+            height: 50;
+        }
+        .new_post_popup{
+            text-align: center;
+        }
+        .new_post_div{
+            margin-top: 20;
+        }
+        .new_post_div{
+            margin-top: 20;
+        }
+        .new_post_text_input{
+            border-width: 2px;
+            border-color: #e8e8e8;
+            padding: 10;
+            width: 80%;
+            margin-top: 10;
+            font-family: "Tahoma"
         }
         textarea{
-            padding:10;
-            font-family: DejaVu Sans Mono, monospace;
-            width: 50%;
-            height: 100;
+            height:200px;
         }
-        #button{
-            background-color: #40d695;
+        .submit_button{
             border: none;
-            border-radius: 20%;
-            font-size: large;
-            padding:20;
-            margin-top: 10;
+            padding: 20;
+            padding-right: 40;
+            padding-left: 40;
+            font-weight: bold;
+            background-color: rgb(33, 33, 33);
             color: white;
+            margin-top: 10;
+        }
+        .submit_button:hover{
+            background-color: rgb(61, 61, 61);
+        }
+        .search{
+            margin-top: 10;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .search_button{
+            height: 30;
+            width: 60;
+            justify-content: center;
+            text-align: center;
+            padding: 5;
+        }
+        .search_input{
+            padding: 5px;
+            border: none;
+            height: 30;
+        }
+        .sign_out{
+            color:white;
+        }
+        a{
+            text-decoration: none;
         }
     </style>
+    <script>
+        async function addPost(){
+            console.log("adding post")
+            document.getElementById('new_post_popup').innerHTML=`
+            <div class="card">
+                        <form action="{{url_for('add_post')}}" method="POST">
+                            <div class="new_post_div">
+                                <div class="card_heading">Title: </div>
+                                <input class="new_post_text_input" name="title"/>
+                            </div>
+                            <div class="new_post_div">
+                                <div class="card_heading">Content: </div>
+                                <textarea class="new_post_text_input" name="content"></textarea>
+                            </div>
+                            <input type="submit" class="submit_button"/>
+                        </form>
+                </div>`
+        }
+    </script>
     <head>
         <title>Forum</title>
     </head>
     <body>
-		<div class="posts">
-			<p class="singed_user">Signed in as {{user | safe}}</p>
-            <p>{{param | safe}}</p>
-			<br></br>
-            <table>
-                <tr>
-                    <th>User</th>
-                    <th>Title</th>
-                    <th>Message</th>
-                </tr>
-                {% for post in posts %}
-                <tr>
-                    <td>{{post.user}}</td>
-                    <td>{{post.title | safe}}</td>
-                    <td>{{post.content | safe}}</td>
-                </tr>
-                {% endfor %}
-            </table>
+		<div class="header">
+            <div class="header_content">
+                <div class="left">
+                    <a href="{{url_for('profile')}}">
+                        <img  src="{{url_for('get_image', img=avatar)}}" class="header_avatar" alt="AV">
+                    </a>
+                    <div class="signed_user">Signed in as: {{user | safe}}</div>
+                </div>
+                <div class="right">
+                    <a href="{{url_for('sign_out')}}">
+                        <div id="signout" class="sign_out">Sign out</div>
+                    </a>
+                </div>
+            </div>
 		</div>
-            <div id="new_post">
-                <b>Add a new post</b>
-                <form action="{{url_for('add_post')}}" method="POST">
-                    <label>Title:</label><br/>
-                    <input type="text" name="title"/><br/>
-                    <label>Content:</label><br/>
-                    <textarea name="content"></textarea><br/>
-                    <input id="button" type="submit" value="Post"/>
+		<div class="content">
+            <div class="search">
+                <form action="{{url_for('forum')}}" method="GET">
+                    <input type=text class="search_input" name="search" placeholder="Search for post title"/>
+                    <input type="submit" value="Search" class="submit_button search_button"/>
                 </form>
-		</div>
+                {% if search_param != None %}
+                <div class="search_param">
+                    Searching by title: {{search_param | safe}}
+                </div>
+                {% endif %}
+            </div>
+            <div id='posts' class="posts">
+                {% if num_of_posts == 0 %}
+                <div>
+                    No posts to display.
+                </div>
+                {% endif %}
+                {% for post in posts %}
+                <div id='card' class="card">
+                    <div class="post_header">
+                        <div class="title">
+                            <div class="card_heading">Title: </div>
+                            <div class="post_title"> {{post.title | safe}}</div>
+                        </div>
+                        <div class="author">
+                            <div class="card_heading">Author: </div>
+                            <div class="post_author">{{post.user | safe}}</div>
+                        </div>
+                    </div>
+                    <div class="seperator"></div>
+                    <div class="post_content">
+                        <div class="post_title">{{post.content | safe}}</div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            <button class="new_post" onclick="addPost()"><img alt="plus icon" class="plus" src="{{url_for('get_image', img='plus.png')}}" /></button>
+		
+            <div id="new_post_popup" class="new_post_popup">
+                
+            </div>
+        </div>
     </body>
 </html>

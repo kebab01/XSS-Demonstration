@@ -1,7 +1,6 @@
 import psycopg2
-
-USER="tom"
-PASS="asdf"
+from random import randint
+from flask import escape
 
 conn=None
 def connect():
@@ -31,9 +30,11 @@ def is_valid_user(username, password):
 
 def create_user(username, password):
     
+    rand_num=randint(1,11)
+    avatar=f'avatar_id{rand_num}.png'
     connect()
     cursor=conn.cursor()
-    cursor.execute("insert into users (username, password) values (%s, %s)", (username, password))
+    cursor.execute("insert into users (username, password, avatar) values (%s, %s, %s)", (username, password, avatar))
     conn.commit()
 
 def getPosts():
@@ -53,20 +54,30 @@ def addPost(user, title, content):
     cursor=conn.cursor()
     cursor.execute("insert into posts (title, author, content) values (%s, %s, %s)", (title, user, content))
     conn.commit()
-        
+
+def getAvatar(user):
+    connect()
+    cursor=conn.cursor()
+    cursor.execute("select avatar from users where username=(%s)", (user,))
+    avatar=cursor.fetchone()
+
+    if avatar != None:
+        return avatar[0]
+
 def sanitize_post(post):
     
-    content=post['content']
-    title=post['title']
+    post['content']=escape(post['content'])
+    post['title']=escape(post['title'])
 
-    content=content.replace("<","")
-    content=content.replace(">","")
-    
-    title=title.replace("<","")
-    title=title.replace(">","")
-
-    post['content']=content
-    post['title']=title
-
-    print(post)
     return post
+
+def valid_user(user):
+    connect()
+    cursor=conn.cursor()
+    cursor.execute("select * from users where username=(%s)", (user,))
+    user=cursor.fetchone()
+
+    if user ==None:
+        return False
+
+    return True

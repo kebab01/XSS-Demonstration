@@ -1,0 +1,132 @@
+<html>
+
+<head>
+	<title>XSS Example</title>
+	<style>
+		body {
+			padding: 0;
+			margin: 0;
+			justify-content: center;
+			align-items: center;
+			background-color: rgb(247, 245, 245);
+			text-align: center;
+			font-family: "Tahoma"
+		}
+
+		.header {
+			height: 80;
+			width: 100%;
+			background: #012e75;
+			align-items: center;
+            
+		}
+        .header_avatar{
+            width: 50px;
+            height: 50px;
+        }
+		.header_content{
+            height: 100%;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            justify-content: space-between;
+		}
+        .left{
+            margin-left: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .right{
+            margin-right: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .signed_user{
+            color: white;
+            font-size: 20;
+            margin-left: 20px;
+            display: flex;
+        }
+		.profile_avatar{
+            width: 100px;
+            height: 100px;
+        }
+		.card{
+				background-color: white;
+				width:max(40%,500px);
+				align-self: center;
+				margin: auto;
+				margin-top: 20px;
+				text-align: center;
+				padding: 20;
+				border-radius: 30px;
+				box-shadow: 5px 10px #e8e8e8;
+			}
+
+		.not_member {
+			display: flex;
+			text-align: center;
+			justify-content: center;
+			margin-top: 30;
+		}
+
+		.text_input {
+			border-radius: 10%;
+			height: 30;
+			width: 200;
+		}
+		.submit_button {
+			border: none;
+			padding: 20;
+			padding-right: 40;
+			padding-left: 40;
+			font-weight: bold;
+			background-color: rgb(33, 33, 33);
+			color: white;
+			margin-top: 10;
+		}
+		.submit_button:hover {
+			background-color: rgb(61, 61, 61);
+		}
+		.sign_out{
+            color:white;
+        }
+		a{
+            text-decoration: none;
+        }
+	</style>
+</head>
+
+<body>
+	<div class="header">
+		<div class="header_content">
+			<div class="left">
+				<a href="{{url_for('profile')}}">
+					<img  src="{{url_for('get_image', img=avatar)}}" class="header_avatar" alt="AV">
+				</a>
+				<div class="signed_user">Signed in as: {{user | safe}}</div>
+			</div>
+			<div class="right">
+				<a href="{{url_for('sign_out')}}">
+					<div class="sign_out">Sign out</div>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="content">
+		<div class="card">
+
+			<h1>Profile</h1>
+			<p>Name: {{user | safe}}</p>
+			<img  src="{{url_for('get_image', img=avatar)}}" class="profile_avatar" alt="AV">
+			<br></br>
+			<br></br>
+		</div>
+		</form>
+	</div>
+</body>
+
+</html>

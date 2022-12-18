@@ -2,56 +2,109 @@
     <head>
         <title>XSS Example</title>
 		<style>
+			body{
+				padding: 0;   
+				margin: 0;
+				justify-content: center;
+				align-items: center;
+				background-color: rgb(247, 245, 245);
+				text-align: center;
+				font-family: "Tahoma"
+			}
 			.header {
-			padding: 20px;
-			text-align: center;
-			background: #40d695;
-			color: white;
-			font-size: 30px;
-			font-family: DejaVu Sans Mono, monospace;
+				height: 60;
+				width: 100%;
+				background:#012e75;
+				font-size: 30px;
 			}
-			.paragraph {
-			padding: 10px;
-			text-align: center;
-			background: #012e75;
-			color: white;
-			font-size: 30px;
-			font-family: DejaVu Sans Mono, monospace;
+			.card{
+				background-color: white;
+				width:max(40%,500px);
+				align-self: center;
+				margin: auto;
+				margin-top: 20px;
+				text-align: center;
+				padding: 20;
+				border-radius: 30px;
+				box-shadow: 5px 10px #e8e8e8;
 			}
-			#button{
-            background-color: #40d695;
-            border: none;
-            border-radius: 20%;
-            font-size: large;
-            padding:20px;
-            margin-top: 10;
-            color: white;
-        }
+			.singup{
+				display : flex;
+				text-align: center;
+				align-items: center;
+				align-self: center;
+				justify-content: center;
+				margin-top: 30;
+				margin-bottom: 30;
+			}
+			.text_input{
+				height: 30;
+				width: 200;
+				border: none;
+				border-bottom: 1px solid rgb(0, 0, 0);
+			}
+			.page_title{
+				font-weight: bold;
+				font-size: 40;
+			}
+			.sub_title{
+				font-weight: bold;
+				font-size: 20;
+			}
+			.login_form{
+				margin-top: 40;
+				margin-bottom: 40;
+			}
+			input{
+				margin: 10;
+			}
+			.submit_button{
+				border: none;
+				padding: 20;
+				padding-right: 40;
+				padding-left: 40;
+				font-weight: bold;
+				background-color: rgb(33, 33, 33);
+				color: white;
+
+			}
+			.submit_button:hover{
+				background-color: rgb(61, 61, 61);
+
+			}
+			.password_error{
+				margin: 10;
+			}
 		</style>
     </head>
 
     <body>
 		<div class="header">
-			<h1>Welcome</h1>
-			<p>Please sign in</p>
 		</div>
-		<div class="paragraph">
-        <form action="{{url_for('login')}}" method="POST">
-            <label>Username:</label><br>
-            <input type="text" name="uname"><br><br>
-            <label>Password:</label><br>
-            <input type="password" name="passwd"><br><br>
-            <input id="button" type="submit" name='login' value="Login">
-			<br></br>
-            {% if failed == True %}
-                <p style="color: red">Incorrect username or password</p>
-            {% endif %}
-			<br></br>
-            <div>
-                Not a member?
-				<br></br>
-                <input id="button" type="submit" name="sign_up" value="Sign Up"/>
-            </div>
+		<div class="content">
+			<div class="card">
+				<h1 class="page_title">Welcome</h1>
+				<h2 class="sub_title">Please sign in</h2>
+				<div class="login_form">
+					<form action="{{url_for('login')}}" method="POST">
+						<label>Username:</label><br>
+						<input class="text_input" type="text" name="uname"><br><br>
+						<label>Password:</label><br>
+						<input class="text_input" type="password" name="passwd"><br><br>
+						<input class="submit_button" type="submit" name='login' value="Login">
+						{% if failed == True %}
+						<div id="password_error">
+							<p style="color: red">Incorrect username or password</p>
+						</div>
+							{% endif %}
+					</div>
+				</div>
+			<div>
+				<div class="singup">
+					Not a member?
+					<input class="submit_button" type="submit" name="sign_up" value="Sign Up"/>
+				</div>
+			</div>
         </form>
 		</div>
     </body>

@@ -1,6 +1,7 @@
 create table if not exists users(
     username text primary key not null unique,
-    password text not null -- Yes this is very bad
+    password text not null, -- Yes this is very bad
+    avatar text  not null
 );
 
 create table if not exists posts(

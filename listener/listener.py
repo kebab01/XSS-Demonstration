@@ -4,6 +4,7 @@ import colorama
 from colorama import Fore, Back, Style
 colorama.init(autoreset=True)
 
+
 app=FastAPI()
 
 @app.get("/")
